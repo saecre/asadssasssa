@@ -2546,27 +2546,30 @@
         syncStore();
         startBanner();
 
-    <script>
-function buyItem(pid){
-  fetch("https://3cb916d3-8881-49e9-b5af-e016e817f599-00-eybkay35zx30.spock.replit.dev/buy", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": "mysecret"
-    },
-    body: JSON.stringify({
-      productId: pid
-    })
-  })
+    <body>
+
+<h1>สินค้า</h1>
+
+<div id="grid"></div>
+
+<script>
+fetch("https://3cb916d3-8881-49e9-b5af-e016e817f599-00-eybkay35zx30.spock.replit.dev/products")
   .then(res => res.json())
   .then(data => {
-    alert(data.status);
-  })
-  .catch(err => {
-    alert("error");
-    console.log(err);
+    console.log(data);
+
+    const grid = document.getElementById("grid");
+
+    data.forEach(p => {
+      grid.innerHTML += `
+        <div>
+          <h3>${p.name}</h3>
+          <p>${p.price}</p>
+        </div>
+      `;
+    });
   });
-}
 </script>
+
 </body>
 </html>
