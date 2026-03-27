@@ -2559,12 +2559,17 @@ fetch("https://3cb916d3-8881-49e9-b5af-e016e817f599-00-eybkay35zx30.spock.replit
     console.log(data);
 
     const grid = document.getElementById("grid");
+    grid.innerHTML = "";
 
-    data.forEach(p => {
+    Object.keys(data).forEach(key => {
+      const p = data[key];
+
       grid.innerHTML += `
-        <div>
+        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+          <img src="${p.url}" width="100"><br>
           <h3>${p.name}</h3>
-          <p>${p.price}</p>
+          <p>ราคา: ${p.price}</p>
+          <button onclick="buyItem('${key}')">ซื้อ</button>
         </div>
       `;
     });
