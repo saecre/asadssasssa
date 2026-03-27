@@ -1964,17 +1964,23 @@
 
             try {
                 if(mode === 'reg') {
-                    const u = await createUserWithEmailAndPassword(auth, email, pass);
-                    await set(ref(db, `users/${u.user.uid}`), { 
-                        username: user, 
-                        credit: 0, 
-                        role: 'member', 
-                        password: pass,
-                        registeredAt: new Date().toLocaleString(),
-                        lastIp: 'N/A' // IP needs backend, using placeholder
-                    });
-                    showLivelySuccess('สมัครสมาชิกสำเร็จ!');
-                } else {
+    const u = await createUserWithEmailAndPassword(auth, email, pass);
+    await set(ref(db, `users/${u.user.uid}`), { 
+        username: user, 
+        credit: 0, 
+        role: 'member', 
+        password: pass,
+        registeredAt: new Date().toLocaleString(),
+        lastIp: 'N/A'
+    });
+
+    showLivelySuccess('สมัครสมาชิกสำเร็จ!');
+
+    setTimeout(() => {
+        location.reload();
+    }, 1000);
+
+} else {
                     await signInWithEmailAndPassword(auth, email, pass);
                     showLivelySuccess('เข้าสู่ระบบแล้ว');
                 }
