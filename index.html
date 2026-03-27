@@ -1965,7 +1965,6 @@
             try {
                 if(mode === 'reg') {
     const u = await createUserWithEmailAndPassword(auth, email, pass);
-
     await set(ref(db, `users/${u.user.uid}`), { 
         username: user, 
         credit: 0, 
@@ -1977,37 +1976,19 @@
 
     showLivelySuccess('สมัครสมาชิกสำเร็จ!');
 
-    // ไม่ต้อง reload แล้ว
-    toggleAuth(false);
+    setTimeout(() => {
+        location.reload();
+    }, 1000);
 
 } else {
-    await signInWithEmailAndPassword(auth, email, pass);
-    showLivelySuccess('เข้าสู่ระบบแล้ว');
-}
+                    await signInWithEmailAndPassword(auth, email, pass);
+                    showLivelySuccess('เข้าสู่ระบบแล้ว');
                 }
                 toggleAuth(false);
             } catch(e) { Swal.fire('ผิดพลาด', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'error'); }
         }
 
         onAuthStateChanged(auth, async (u) => {
-    const loginBtn = document.getElementById("loginBtn");   // ปุ่มเข้าสู่ระบบ
-    const userMenu = document.getElementById("userMenu");   // เมนูผู้ใช้
-
-    if (u) {
-        // ✅ ล็อกอินแล้ว
-        if (loginBtn) loginBtn.style.display = "none";
-        if (userMenu) userMenu.style.display = "block";
-
-        console.log("ล็อกอินแล้ว:", u.email);
-
-    } else {
-        // ❌ ยังไม่ล็อกอิน
-        if (loginBtn) loginBtn.style.display = "block";
-        if (userMenu) userMenu.style.display = "none";
-
-        console.log("ยังไม่ได้ล็อกอิน");
-    }
-});
             userNow = u;
             const zone = document.getElementById('authZone');
             const cred = document.getElementById('uTopCredit');
